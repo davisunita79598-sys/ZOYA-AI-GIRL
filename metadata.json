@@ -1,0 +1,11 @@
+{
+  "name": "Remix: Remix: Zoya AI Assistant",
+  "description": "A real-time, voice-to-voice AI assistant with a sassy, witty, and flirty personality. Powered by Gemini Live.",
+  "requestFramePermissions": [
+    "microphone"
+  ],
+  "majorCapabilities": [
+    "voice_interaction",
+    "real_time_ai"
+  ]
+}
