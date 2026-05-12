@@ -17,11 +17,7 @@ export default function ZoyaFace({ isSpeaking, isListening, state, volume = 0 }:
     <div className="relative w-80 h-80 rounded-full overflow-hidden border-8 border-pink-500/20 shadow-[0_0_100px_-20px_rgba(236,72,153,0.4)] bg-neutral-900 group">
       {/* Dynamic Image */}
       <motion.img
-        src="/zoya.png"
-        onError={(e) => {
-          // Fallback to a high-quality pink-haired anime character similar to user's request
-          (e.target as HTMLImageElement).src = "https://images.unsplash.com/photo-1627637454030-cf0039779391?auto=format&fit=crop&q=80&w=600&h=600";
-        }}
+        src="/src/assets/images/regenerated_image_1778592731905.png"
         alt="Zoya"
         animate={{
           scale: isSpeaking ? [1, 1 + volume * 0.05, 1] : isListening ? [1, 1.01, 1] : 1,
