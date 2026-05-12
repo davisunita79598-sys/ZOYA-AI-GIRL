@@ -11,6 +11,8 @@ import ZoyaFace from "./components/ZoyaFace";
 import HistoryDrawer from "./components/HistoryDrawer";
 import { useState } from "react";
 
+import ReactMarkdown from "react-markdown";
+
 export default function App() {
   const { state, toggleConnection, transcript, volume } = useLiveAssistant();
   const [isHistoryOpen, setIsHistoryOpen] = useState(false);
@@ -92,13 +94,13 @@ export default function App() {
                 initial={{ opacity: 0, x: t.isUser ? 20 : -20 }}
                 animate={{ opacity: 1, x: 0 }}
                 exit={{ opacity: 0 }}
-                className={`text-xs px-3 py-1.5 rounded-xl max-w-[75%] ${
+                className={`text-xs px-3 py-1.5 rounded-xl max-w-[75%] prose prose-invert prose-p:my-0 prose-a:text-pink-400 prose-a:underline overflow-hidden break-words ${
                   t.isUser 
                     ? "bg-white/5 text-neutral-400 self-end" 
                     : "bg-pink-500/10 text-pink-300 self-start border border-pink-500/20"
                 }`}
               >
-                {t.text}
+                <ReactMarkdown>{t.text}</ReactMarkdown>
               </motion.div>
             ))}
           </AnimatePresence>

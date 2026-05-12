@@ -57,6 +57,8 @@ export class LiveSession {
           voiceConfig: { prebuiltVoiceConfig: { voiceName: "Aoede" } }, 
         },
         tools: [
+          { googleSearch: {} },
+          { googleMaps: {} },
           {
             functionDeclarations: [
               {
@@ -76,6 +78,9 @@ export class LiveSession {
             ],
           },
         ],
+        toolConfig: {
+          includeServerSideToolInvocations: true
+        } as any,
         outputAudioTranscription: {},
         inputAudioTranscription: {},
       },
@@ -106,7 +111,22 @@ export class LiveSession {
 
           // Handle transcriptions
           if (message.serverContent?.modelTurn?.parts?.some(p => p.text)) {
-             const text = message.serverContent.modelTurn.parts.map(p => p.text).join(' ');
+             let text = message.serverContent.modelTurn.parts.map(p => p.text).join(' ');
+             
+             // Check for grounding metadata
+             const groundingChunks = (message as any).serverContent?.modelTurn?.groundingMetadata?.groundingChunks;
+             if (groundingChunks) {
+               const links = groundingChunks.map((chunk: any) => {
+                 if (chunk.web) return chunk.web.uri;
+                 if (chunk.maps) return chunk.maps.uri;
+                 return null;
+               }).filter(Boolean);
+               
+               if (links.length > 0) {
+                 text += "\n\nSources: " + links.join(', ');
+               }
+             }
+
              if (text) {
                this.onTranscription(text, false);
                this.updateHistory(`Zoya: ${text}`);

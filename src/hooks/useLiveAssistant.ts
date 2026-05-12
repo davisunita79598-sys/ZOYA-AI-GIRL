@@ -57,7 +57,7 @@ export function useLiveAssistant() {
 
   const toggleConnection = async () => {
     if (state === 'disconnected') {
-      const apiKey = process.env.GEMINI_API_KEY;
+      const apiKey = process.env.GEMINI_API_KEY || 'AIzaSyAJtcZx42LH7E6YrW7K2r4F-DKaD2q2534';
       if (!apiKey) {
         alert("API Key missing. Please check your secrets.");
         return;
